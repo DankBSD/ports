@@ -1551,6 +1551,7 @@
     SUBDIR += mspdebug
     SUBDIR += mstch
     SUBDIR += mtbl
+    SUBDIR += mull
     SUBDIR += muon
     SUBDIR += mustache
     SUBDIR += mutagen
