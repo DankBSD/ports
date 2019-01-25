@@ -13,6 +13,8 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 LIB_DEPENDS=	libjson-glib-1.0.so:devel/json-glib \
 		libfontconfig.so:x11-fonts/fontconfig \
 		libfreetype.so:print/freetype2 \
+		libwayland-egl.so:graphics/wayland \
+		libxkbcommon.so:x11/libxkbcommon \
 		libcogl.so:graphics/cogl \
 		libharfbuzz.so:print/harfbuzz
 
@@ -30,6 +32,7 @@ CONFIGURE_ARGS=	--with-x --enable-conformance=no \
 		--enable-egl-backend=yes \
 		--enable-x11-backend=yes \
 		--enable-gdk-backend=no \
+		--enable-wayland-backend=yes \
 		--enable-wayland-compositor=no
 INSTALL_TARGET=	install-strip
 CPE_VENDOR=	clutter_project
