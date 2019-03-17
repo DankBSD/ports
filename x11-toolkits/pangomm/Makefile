@@ -1,9 +1,8 @@
 PORTNAME=	pangomm
-PORTVERSION=	2.40.1
-PORTREVISION?=	6
+PORTVERSION=	2.42.0
 CATEGORIES=	x11-toolkits
 MASTER_SITES=	GNOME
-DIST_SUBDIR=	gnome2
+DIST_SUBDIR=	gnome
 
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	C++ wrapper for Pango
@@ -20,6 +19,7 @@ USES+=		compiler:c++11-lang gmake gnome libtool localbase pathfix \
 		pkgconfig
 USE_CXXSTD=	c++11
 USE_GNOME=	cairomm glibmm pango
+
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 CONFIGURE_ARGS=	--disable-documentation \
@@ -27,6 +27,7 @@ CONFIGURE_ARGS=	--disable-documentation \
 INSTALL_TARGET=	install-strip
 BINARY_WRAPPERS=	gm4
 
+PORTSCOUT=	limitw:1,even
 PLIST_SUB=	VERSION="2.4" API_VERSION="1.4"
 
 post-patch:
@@ -36,7 +37,3 @@ post-patch:
 .endfor
 
 .include <bsd.port.mk>
-
-.else
-PORTSCOUT=	ignore:1
-.endif
