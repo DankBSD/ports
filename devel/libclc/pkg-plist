@@ -325,8 +325,6 @@ share/clc/polaris10-amdgcn-mesa-mesa3d.bc
 share/clc/polaris11-amdgcn--.bc
 share/clc/polaris11-amdgcn-mesa-mesa3d.bc
 share/clc/redwood-r600--.bc
-share/clc/spirv-mesa3d-.spv
-share/clc/spirv64-mesa3d-.spv
 share/clc/stoney-amdgcn--.bc
 share/clc/stoney-amdgcn-mesa-mesa3d.bc
 share/clc/sumo-r600--.bc
