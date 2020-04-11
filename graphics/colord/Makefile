@@ -11,6 +11,7 @@ WWW=		https://www.freedesktop.org/software/colord
 LICENSE=	GPLv2
 
 LIB_DEPENDS=	libdbus-1.so:devel/dbus \
+		libgusb.so:devel/libgusb \
 		liblcms2.so:graphics/lcms2
 
 USERS=		colord
@@ -26,7 +27,7 @@ CONFIGURE_ARGS=	--disable-udev \
 		--localstatedir=/var \
 		--enable-gtk-doc-html=no \
 		--disable-bash-completion \
-		--disable-gusb \
+		--enable-gusb \
 		--disable-sane \
 		--with-daemon-user=colord \
 		--disable-systemd-login \
