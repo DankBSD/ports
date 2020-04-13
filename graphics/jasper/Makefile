@@ -24,7 +24,6 @@ DOCSDIR=	${PREFIX}/share/doc/JasPer
 CPE_VENDOR=	jasper_project
 
 OPTIONS_DEFINE=	DOCS HEIF OPENGL TEST
-OPTIONS_DEFAULT=OPENGL
 OPTIONS_SUB=	yes
 HEIF_DESC=	ISO/IEC 23008-12:2017 HEIF file format support (experimental)
 
