@@ -15,26 +15,32 @@ LIB_DEPENDS=	libjson-glib-1.0.so:devel/json-glib \
 		libfreetype.so:print/freetype2 \
 		libwayland-egl.so:graphics/wayland \
 		libxkbcommon.so:x11/libxkbcommon \
+		libgudev-1.0.so:devel/libgudev \
+		libudev.so:devel/libudev-devd \
+		libinput.so:x11/libinput \
 		libcogl.so:graphics/cogl \
 		libharfbuzz.so:print/harfbuzz
 
 PORTSCOUT=	limit:1,even
 
-USES=		cpe gettext gl gmake gnome libtool localbase pathfix pkgconfig \
-		tar:xz xorg
+USES=		cpe gettext gl gmake gnome libtool localbase meson pathfix pkgconfig \
+		tar:xz
 USE_GNOME=	atk cairo gdkpixbuf2 pango introspection:build
 USE_GL=		egl
-USE_XORG=	x11 xcomposite xdamage xext xfixes xi xrandr
-GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
-CONFIGURE_ARGS=	--with-x --enable-conformance=no \
-		--disable-evdev-input \
-		--enable-egl-backend=yes \
-		--enable-x11-backend=yes \
-		--enable-gdk-backend=no \
-		--enable-wayland-backend=yes \
-		--enable-wayland-compositor=no
-INSTALL_TARGET=	install-strip
-CPE_VENDOR=	clutter_project
+MESON_ARGS=	-Dwayland_compositor=false \
+		-Ddocumentation=false \
+		-Dbuild_examples=false
+
+# TODO: fix compositor support in cogl
+
+OPTIONS_DEFINE=		X11
+OPTIONS_DEFAULT=	X11
+OPTIONS_SUB=		yes
+
+X11_USES=		xorg
+X11_USE=		XORG=x11,xcomposite,xdamage,xext,xfixes,xi,xrandr
+X11_MESON_ON=	-Dbackends=x11,gdk,wayland,eglnative
+X11_MESON_OFF=	-Dbackends=gdk,wayland,eglnative
 
 .include <bsd.port.mk>

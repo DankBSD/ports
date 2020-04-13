@@ -24,7 +24,6 @@ USES=		gettext-runtime gl gnome localbase meson \
 USE_GNOME=	cairo gdkpixbuf2 gtk30 introspection:build
 USE_GL=		egl
 USE_LDCONFIG=	yes
-INSTALL_TARGET=	install-strip
 
 PLIST_SUB=	VERSION=0.12
 
