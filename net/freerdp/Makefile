@@ -79,8 +79,8 @@ GSM_LIB_DEPENDS=	libgsm.so:audio/gsm
 GSM_CMAKE_BOOL=		WITH_GSM
 
 GSTREAMER_CMAKE_BOOL=	WITH_GSTREAMER_1_0 CHANNEL_TSMF
-GSTREAMER_USES=		gnome gstreamer xorg
-GSTREAMER_USE=		gnome=glib20 xorg=x11,xext,xorgproto,xrandr
+GSTREAMER_USES=		gnome gstreamer
+GSTREAMER_USE=		gnome=glib20
 GSTREAMER_LIB_DEPENDS=	libgstbase-1.0.so:multimedia/gstreamer1
 
 ICU_LIB_DEPENDS=	libicuuc.so:devel/icu
