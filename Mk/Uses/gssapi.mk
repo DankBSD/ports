@@ -78,7 +78,9 @@ _MITKRB5_DEPENDS=${GSSAPILIBDIR}/libkrb5support.so:security/krb5
 _HEADERS=	sys/types.h sys/stat.h stdint.h
 
 .  if empty(gssapi_ARGS)
+.    if exists(${DESTDIR}/usr/lib/libgssapi.so) && ${SSL_DEFAULT} == base
 gssapi_ARGS=	base
+.    endif
 .  endif
 .  for _A in ${gssapi_ARGS}
 _local:=	${_A}
