@@ -1772,6 +1772,8 @@ CFLAGS:=	${CFLAGS:C/${_CPUCFLAGS}//}
 .      endif
 .    endfor
 
+.include "${PORTSDIR}/Mk/bsd.dank.mk"
+
 # XXX PIE support to be added here
 MAKE_ENV+=	NO_PIE=yes
 # We will control debug files.  Don't let builds that use /usr/share/mk
