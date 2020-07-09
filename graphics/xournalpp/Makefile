@@ -22,7 +22,6 @@ USES=		cmake compiler:c++11-lang gettext-tools gnome lua:53 pkgconfig xorg
 USE_GITHUB=	yes
 USE_GNOME=	atk cairo gdkpixbuf2 glib20 gtk30 librsvg2 libxml2 pango
 USE_XORG=	x11 xi
-USE_TEX=	latex:build
 
 LDFLAGS+=	-lexecinfo
 
