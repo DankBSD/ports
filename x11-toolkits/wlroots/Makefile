@@ -9,6 +9,9 @@ PATCHFILES+=	55a8d225cf8c.patch:-p1:github # https://gitlab.freedesktop.org/wlro
 PATCH_SITES+=	${GL_SITE}/${GL_ACCOUNT}/${GL_PROJECT}/-/commit/
 PATCHFILES+=	347b32642fb6.patch:-p1 # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/3318
 
+# setting HiDPI Xwayland scale via env
+PATCHFILES+=	6d0df1ee94af8e5d0b91c2677540ad9120153fd0.patch:-p1
+
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	Modular Wayland compositor library
 WWW=		https://gitlab.freedesktop.org/wlroots/wlroots
