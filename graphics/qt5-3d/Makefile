@@ -21,4 +21,8 @@ AVX_EXTRA_PATCHES=	${FILESDIR}/extrapatch-src_core_configure.json
 
 QT_BINARIES=	yes
 
+.if ${ARCH:tl} == "amd64"
+CPUTYPE=nehalem
+.endif
+
 .include <bsd.port.mk>
