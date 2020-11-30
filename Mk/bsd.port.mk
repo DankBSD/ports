@@ -1835,7 +1835,7 @@ PKG_DEPENDS+=	${LOCALBASE}/sbin/pkg:${PKG_ORIGIN}
 .include "${PORTSDIR}/Mk/bsd.gcc.mk"
 .    endif
 
-.    if defined(LLD_UNSAFE) && ${/usr/bin/ld:L:tA} == /usr/bin/ld.lld
+.    if defined(LLD_UNSAFE) && (${/usr/bin/ld:L:tA} == /usr/bin/ld.lld || ${LD} == /usr/local/llvm11/bin/ld.lld)
 LDFLAGS+=	-fuse-ld=bfd
 BINARY_ALIAS+=	ld=${LD}
 .      if !defined(USE_BINUTILS)
