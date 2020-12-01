@@ -84,6 +84,8 @@ USE_GCC=		yes
 
 MAXTHREADS?=	64
 
+_CPUCFLAGS:=
+
 .include <bsd.port.pre.mk>
 
 post-extract:
@@ -120,6 +122,7 @@ post-patch:
 .endif
 
 post-patch-OPENMP-on:
+	${REINPLACE_CMD} -e 's|CC =|ENV{"CC"} =|g' ${WRKSRC}/f_check
 	@${REINPLACE_CMD} -e "s+OPENBLAS_NUM_THREADS+OMP_NUM_THREADS+g" \
 		${WRKSRC}/test/Makefile \
 		${WRKSRC}/ctest/Makefile
