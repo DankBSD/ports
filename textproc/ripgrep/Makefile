@@ -107,6 +107,9 @@ PCRE2_DESC=	${PCRE_DESC} version 2
 PCRE2_LIB_DEPENDS=	libpcre2-8.so:devel/pcre2
 PCRE2_VARS=	CARGO_FEATURES+=pcre2
 
+# unresolved import `crate::arch::x86_64::_mm_shuffle_pi8`
+_CPUCFLAGS:=
+
 SIMD_MAKE_ENV=	RUSTC_BOOTSTRAP=encoding_rs,packed_simd_2
 SIMD_VARS=	CARGO_FEATURES+=simd-accel ${SIMD_VARS_${ARCH}}
 SIMD_VARS_i386=	RUSTFLAGS+="-C target-feature=+sse2"
