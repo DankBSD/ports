@@ -31,4 +31,10 @@ do-test: create-binary-alias # force if run late
 do-test:
 	@(cd ${TEST_WRKSRC} && ${SETENV} ${TEST_ENV} ${PYTHON_CMD} ${WRKSRC}/run_unittests.py)
 
-.include <bsd.port.mk>
+.include <bsd.port.pre.mk>
+
+.if ${PREFIX} != /usr
+EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-setup.py
+.endif
+
+.include <bsd.port.post.mk>
