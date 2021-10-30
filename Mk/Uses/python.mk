@@ -673,12 +673,17 @@ add-plist-egginfo:
 _RELSITELIBDIR=	${PYTHONPREFIX_SITELIBDIR:S;${PREFIX}/;;}
 _RELLIBDIR=		${PYTHONPREFIX_LIBDIR:S;${PREFIX}/;;}
 
+#  DankBSD: Fix /usr PREFIX
+.if ${PREFIX} == /usr
+PY_MAN_PREFIX=	share/
+.endif
+
 _USES_stage+=	934:add-plist-pymod
 add-plist-pymod:
 	@${SED} -e 's|^"\(.*\)"$$|\1|' \
 		-e 's|^${STAGEDIR}${PREFIX}/||' \
 		-e 's|^${PREFIX}/||' \
-		-e 's|^\(man/.*man[0-9]\)/\(.*\.[0-9]\)$$|\1/\2.gz|' \
+		-e 's|^\(man/.*man[0-9]\)/\(.*\.[0-9]\)$$|${PY_MAN_PREFIX}\1/\2.gz|' \
 		-e 's|^\(share/man/.*man[0-9]\)/\(.*\.[0-9]\)$$|\1/\2.gz|' \
 		-e 's|[[:alnum:]|[:space:]]*/\.\./*||g; s|/\./|/|g' \
 		${_PYTHONPKGLIST} | ${SORT} >> ${TMPPLIST}

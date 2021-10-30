@@ -82,7 +82,7 @@ DESTDIR_ENV+=	${_var}="${${_var}}"
 # VAR:HOST_PATH:DEST_PATH
 # VAR -> VAR:${VAR}:TMP
 # VAR:HOST_PATH -> VAR:HOST_PATH:TMP
-DESTDIR_MOUNT_LIST?=	PORTSDIR DISTDIR
+DESTDIR_MOUNT_LIST?=	PORTSDIR DISTDIR DANKCHAIN
 _DESTDIR_MOUNT_LIST=
 .  for _entry in ${DESTDIR_MOUNT_LIST}
 __entry=${_entry}
@@ -204,7 +204,7 @@ do-chroot:
 	export $${_var_path_list}; \
 	${CHROOT} $${_destdir} ${SH} -c "\
 		cd $${PORTSDIR}${.CURDIR:S|^${PORTSDIR}||}; \
-		${SETENV} -i ${DESTDIR_ENV} $${_var_path_list} ${MAKE} ${.TARGETS}" && \
+		${SETENV} -i ${DESTDIR_ENV} $${_var_path_list} ${MAKE} -dlx ${.TARGETS}" && \
 		{ status=$$?; ${ECHO_MSG} "===>  Chrooted make in ${DESTDIR} succeeded"; } || \
 		{ status=$$?; ${ECHO_MSG} "===>  Chrooted make in ${DESTDIR} failed"; }; \
 		${ECHO_MSG} "===>  Cleaning up..."; \

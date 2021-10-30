@@ -14,6 +14,7 @@ _USES_POST+=	localbase
 .if defined(_POSTMKINCLUDED) && !defined(_INCLUDE_USES_LOCALBASE_POST_MK)
 _INCLUDE_USES_LOCALBASE_POST_MK=yes
 
+.if ${LOCALBASE} != /usr
 CPPFLAGS+=	-isystem ${LOCALBASE}/include
 CFLAGS+=	-isystem ${LOCALBASE}/include
 CXXFLAGS+=	-isystem ${LOCALBASE}/include
@@ -22,6 +23,7 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 .  else
 LIBS+=		-L${LOCALBASE}/lib
 .  endif
+.endif
 
 # Use CONFIGURE_ENV instead of CMAKE_ARGS because devel/cmake itself also needs
 # this, and CMAKE_ARGS is not used when bootstrapping CMake.

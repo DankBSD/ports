@@ -73,7 +73,7 @@ check-depends::
 	@${ECHO_CMD} "OpenSSL distribution."
 	@${FALSE}
 .    endif
-.    if exists(${LOCALBASE}/lib/libcrypto.so)
+.    if ${LOCALBASE} != /usr && exists(${LOCALBASE}/lib/libcrypto.so)
 check-depends::
 	@${ECHO_CMD} "Dependency error: This port wants the OpenSSL library from the FreeBSD"
 	@${ECHO_CMD} "base system. You can't build against it, while a newer"

@@ -1090,6 +1090,23 @@ STRIPBIN=	${STRIP_CMD}
 .export.env STRIPBIN
 .endif
 
+.if defined(DANKCHAIN)
+CC=${DANKCHAIN}/bin/clang
+CXX=${DANKCHAIN}/bin/clang++
+CPP=${DANKCHAIN}/bin/clang-cpp
+LD=${DANKCHAIN}/bin/ld
+AR=${DANKCHAIN}/bin/llvm-ar
+NM=${DANKCHAIN}/bin/llvm-nm
+RANLIB=${DANKCHAIN}/bin/llvm-ranlib
+OBJCOPY=${DANKCHAIN}/bin/llvm-objcopy
+OBJDUMP=${DANKCHAIN}/bin/llvm-objdump
+READELF=${DANKCHAIN}/bin/llvm-readelf
+STRIP_CMD=${DANKCHAIN}/bin/llvm-strip
+# various things like perl need some of these:
+CONFIGURE_ENV+=	CC=${CC} LD=${LD} CPP=${CPP} OBJCOPY=${OBJCOPY}
+MAKE_ENV+=			CC=${CC} LD=${LD} CPP=${CPP} OBJCOPY=${OBJCOPY}
+.endif
+
 #
 # DESTDIR section to start a chrooted process if invoked with DESTDIR set
 #
@@ -1828,7 +1845,7 @@ PKG_ORIGIN=		ports-mgmt/pkg-devel
 .    endif
 
 .    if !defined(PKG_DEPENDS) && !defined(CLEAN_FETCH_ENV)
-PKG_DEPENDS+=	${LOCALBASE}/sbin/pkg:${PKG_ORIGIN}
+PKG_DEPENDS+=	${LOCALBASE}/sbin/pkg-static:${PKG_ORIGIN}
 .    endif
 
 .    if defined(USE_GCC)
@@ -3512,7 +3529,7 @@ install-ldconfig-file:
 .          if !defined(USE_LINUX_PREFIX)
 .            if ${USE_LDCONFIG} != "${LOCALBASE}/lib" && !defined(INSTALL_AS_USER)
 	@${ECHO_MSG} "===>   Installing ldconfig configuration file"
-.              if defined(NO_MTREE) || ${PREFIX} != ${LOCALBASE}
+.              if defined(NO_MTREE) || ${PREFIX} != ${LOCALBASE} || ${PREFIX} == /usr
 	@${MKDIR} ${STAGEDIR}${LOCALBASE}/${LDCONFIG_DIR}
 .              endif
 	@${ECHO_CMD} ${USE_LDCONFIG} | ${TR} ' ' '\n' \
@@ -4471,7 +4488,12 @@ ${i:S/-//:tu}=	${WRKDIR}/${SUB_FILES:M${i}*}
 # Generate packing list.  Also tests to make sure all required package
 # files exist.
 
-PLIST_SUB_SANITIZED=	${PLIST_SUB:N*_regex=*}
+PLIST_SUB_SANITIZED=	${PLIST_SUB:N*_regex=*:S/$/!g/:S/^/ -e s!%%/:S/=/%%!/}
+
+#  DankBSD: Fix /usr PREFIX
+.if ${PREFIX} == /usr
+PLIST_SUB_SANITIZED+= -e s!^man/!share/man/!g -e s!^etc/!/etc/!g
+.endif
 
 .    if !target(generate-plist)
 generate-plist: ${WRKDIR}
@@ -4480,19 +4502,19 @@ generate-plist: ${WRKDIR}
 	@if [ ! -f ${DESCR} ]; then ${ECHO_MSG} "** Missing pkg-descr for ${PKGNAME}."; exit 1; fi
 	@>${TMPPLIST}
 	@for file in ${PLIST_FILES}; do \
-		${ECHO_CMD} $${file} | ${SED} ${PLIST_SUB_SANITIZED:S/$/!g/:S/^/ -e s!%%/:S/=/%%!/} >> ${TMPPLIST}; \
+		${ECHO_CMD} $${file} | ${SED} ${PLIST_SUB_SANITIZED} >> ${TMPPLIST}; \
 	done
 .      if !empty(PLIST)
 .        for f in ${PLIST}
 	@if [ -f "${f}" ]; then \
-		${SED} ${PLIST_SUB_SANITIZED:S/$/!g/:S/^/ -e s!%%/:S/=/%%!/} ${f} >> ${TMPPLIST}; \
+		${SED} ${PLIST_SUB_SANITIZED} ${f} >> ${TMPPLIST}; \
 		for i in owner group mode; do ${ECHO_CMD} "@$$i"; done >> ${TMPPLIST}; \
 	fi
 .        endfor
 .      endif
 
 .      for dir in ${PLIST_DIRS}
-	@${ECHO_CMD} ${dir} | ${SED} ${PLIST_SUB_SANITIZED:S/$/!g/:S/^/ -e s!%%/:S/=/%%!/} -e 's,^,@dir ,' >> ${TMPPLIST}
+	@${ECHO_CMD} ${dir} | ${SED} ${PLIST_SUB_SANITIZED} -e 's,^,@dir ,' >> ${TMPPLIST}
 .      endfor
 
 .    endif

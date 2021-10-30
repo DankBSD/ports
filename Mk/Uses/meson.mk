@@ -33,7 +33,7 @@ BUILD_DEPENDS+=		meson>=0.57.1_1:devel/meson
 USE_LOCALE?=	en_US.UTF-8
 
 CONFIGURE_ARGS+=	--prefix ${PREFIX} \
-			--mandir man \
+			--mandir ${MANPREFIX:S|${PREFIX}/||}/man \
 			--infodir ${INFO_PATH}
 
 # Disable color output.  Meson forces it on by default, Ninja
