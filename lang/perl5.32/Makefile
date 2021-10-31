@@ -30,6 +30,8 @@ TEST_ENV=	${MAKE_ENV} \
 
 PORTSCOUT=	limit:^${PERL_VER}.
 
+CFLAGS+=-Wno-compound-token-split-by-macro
+
 HAS_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	Configure
 CONFIGURE_ARGS=		-Darchlib=${PREFIX}/${_ARCH_LIB} \
@@ -245,6 +247,8 @@ post-patch:
 		${WRKSRC}/installperl
 .endif
 
+.include <bsd.port.pre.mk>
+
 post-install:
 	@${REINPLACE_CMD} -e '/^lddlflags/s|-L${WRKSRC} ||' \
 		${STAGEDIR}${PREFIX}/${_ARCH_LIB}/Config_heavy.pl
@@ -283,6 +287,11 @@ post-install:
 			${STRIP_CMD} $$f; \
 			${CHMOD} 444 $$f; \
 		done
+.if ${PREFIX} == /usr
+	${MKDIR} ${STAGEDIR}/etc/man.d
+	${INSTALL_DATA} ${WRKDIR}/perl-man.conf ${STAGEDIR}/etc/man.d/perl${PKGNAMESUFFIX}.conf
+.else
 	${INSTALL_DATA} ${WRKDIR}/perl-man.conf ${STAGEDIR}${PREFIX}/etc/man.d/perl${PKGNAMESUFFIX}.conf
+.endif
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>
