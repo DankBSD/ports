@@ -1,8 +1,7 @@
 # Also update devel/libgit2, devel/rubygem-rugged, devel/py-pygit2
 
 PORTNAME=	libgit2-glib
-PORTVERSION=	0.99.0.1
-PORTREVISION=	3
+PORTVERSION=	1.0.0.1
 CATEGORIES=	devel gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome
