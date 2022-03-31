@@ -1,5 +1,5 @@
 PORTNAME=	lollypop
-DISTVERSION=	1.4.16
+DISTVERSION=	1.4.30
 CATEGORIES=	audio
 
 MAINTAINER=	greg@unrelenting.technology
@@ -27,8 +27,8 @@ USES=		python:3.6+ pkgconfig gnome gettext gstreamer meson shebangfix sqlite des
 USE_GITLAB=	yes
 GL_SITE=	https://gitlab.gnome.org
 GL_ACCOUNT=	World
-GL_COMMIT=	5b2d95f4f8509d80fa86ab7d65b118326dc82a95
-GL_TUPLE=	gnumdk:lollypop-po:94a7300004ec15adfd596c7d2b8670bbf5c2e33a:po/subprojects/po
+GL_COMMIT=	55c5403077a630ccb91803c622f92a8e16eb8189
+GL_TUPLE=	gnumdk:lollypop-po:01af7dd30cb6534326866d656d990119fb6f842a:po/subprojects/po
 USE_GNOME=	glib20 gtk30 pygobject3 introspection:build intltool intlhack
 USE_GSTREAMER=	mpg123 ogg flac opus libav faad good speex
 USE_PYTHON=	py3kplist
